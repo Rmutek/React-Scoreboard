@@ -1,15 +1,18 @@
 var PLAYERS = [
   {
     name: "Rebecca",
-    score: 24
+    score: 24,
+    id: 1
   },
     {
     name: "Tanya",
-    score: 28
+    score: 28,
+    id: 2
   },
     {
     name: "Tara",
-    score: 27
+    score: 27,
+    id: 3
   }
 ];
 
@@ -70,9 +73,9 @@ function Application(props) {
       <Header title={props.title} />
 
       <div className="players">
-        <Players name="Rebecca" score={24} />
-        <Players name="Tanya" score={27} />
-        <Players name="Tara" score={28} />
+        {props.players.map(function(player) {
+          return <Player name={player.name} score={player.score} />
+        })};
       </div>
 
     </div>
@@ -85,6 +88,7 @@ Application.propTypes = {
   players: React.PropTypes.arrayOf(React.PropTypes.shape({
     name: React.PropTypes.string.isRequired,
     score: React.PropTypes.number.isRequired,
+    id: React.PropTypes.number.isRequired,
   })).isRequired,
 };
 
