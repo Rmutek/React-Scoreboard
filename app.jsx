@@ -1,3 +1,18 @@
+var PLAYERS = [
+  {
+    name: "Rebecca",
+    score: 24
+  },
+    {
+    name: "Tanya",
+    score: 28
+  },
+    {
+    name: "Tara",
+    score: 27
+  }
+];
+
 function Header(props) {
   return (     
   <div className="header">
@@ -67,6 +82,10 @@ function Application(props) {
 
 Application.propTypes = {
   title: React.PropTypes.string,
+  players: React.PropTypes.arrayOf(React.PropTypes.shape({
+    name: React.PropTypes.string.isRequired,
+    score: React.PropTypes.number.isRequired,
+  })).isRequired,
 };
 
 Application.defaultProps = {
