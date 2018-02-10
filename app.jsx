@@ -16,8 +16,38 @@ var PLAYERS = [
   }
 ];
 
-function Stats(props) {
+var addPlayer = React.creatClass({
+  propTypes: {
+    onAdd: React.PropTypes.func.isRequired,
+  },
 
+  getInitialState: function() {
+    return {
+      name: " ",
+    };
+  }, 
+
+  onNameChange: function() {
+    
+  },
+
+  onSubmit: function(e) {
+    e.preventDefault();
+  },
+
+  render: function() {
+    return (
+    <div className="add-player-form">
+      <form onSubmit={this.onSubmit} onChange={this.onNameChange}>
+        <input type="text" />
+        <input type="submit" value="Add Player" />
+      </form>
+    </div> 
+    )
+  }
+})
+
+function Stats(props) {
   var totalPlayers = props.players.lenght;
   var totalPoints = props.players.reduce(function(total, player) {
     return total + player.score;
