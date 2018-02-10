@@ -16,6 +16,8 @@ var PLAYERS = [
   }
 ];
 
+var nextId = 4;
+
 var addPlayer = React.creatClass({
   propTypes: {
     onAdd: React.PropTypes.func.isRequired,
@@ -28,11 +30,13 @@ var addPlayer = React.creatClass({
   }, 
 
   onNameChange: function() {
-    
+    this.setState({e.target.value})
   },
 
   onSubmit: function(e) {
     e.preventDefault();
+    this.props.onAdd(this.state.name);
+    this.setState({ name:""});
   },
 
   render: function() {
@@ -108,6 +112,7 @@ function Player(props) {
         <div className="player">
 
           <div className="player-name">
+          <a className="remove-player" onClick={props.onRemove} X </a>
             {props.name} 
           </div>
 
@@ -125,6 +130,7 @@ Player.propTypes = {
   name: React.PropTypes.string.isRequired,
   socre: React.PropTypes.number.isRequired,
   onScoreChange: React.PropTypes.func.isRequired,
+  onRemove: React.PropTypes.func.isRequired,
 };
 
 var Application = React.creatClass({
@@ -155,6 +161,21 @@ onScoreChange function(index, delta) {
   this.setState(this.state)
 },
 
+onPlayerAdd: function(name) {
+  this.state.player.push({
+    name: name,
+    score: 0,
+    id: nextId,
+  });
+  this.setState(this.state);
+  nextId += 1;
+},
+
+onRemove: function(index) {
+  this.state.players.splice(index, 1)
+  this.setState(this.state);
+},
+
 render: function() {
     return (
         <div className="scoreboard">
@@ -165,12 +186,14 @@ render: function() {
           return (
             <Player 
               onScoreChange={function(delta) {this.onScoreChange(index, delta)}.bind(this)}
+              onRemove={function() {this.onRemovePlayer(index)}.bind(this)}
               name={player.name} 
               score={player.score} 
               key={player.id}/>
             );
           }.bind(this))}
         </div>
+        <AddPlayerForm onAdd={this.onPlayerAdd} />
         </div>
       );
     }
