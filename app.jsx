@@ -19,6 +19,10 @@ var PLAYERS = [
 function Stats(props) {
 
   var totalPlayers = props.players.lenght;
+  var totalPoints = props.players.reduce(function(total, player) {
+    return total + player.score;
+  }, 0 )
+
   return(
       <table className="stats">
         <tbody>
@@ -28,7 +32,7 @@ function Stats(props) {
           </tr>
           <tr>
             <td>Total Points:</td>
-            <td>123</td>
+            <td>{totalPoints}</td>
           </tr>
         </tbody>
       </table>
